@@ -1,41 +1,50 @@
 require 'faker'
 require 'open-uri'
 
-puts "🧹 Deleting all products..."
+puts "🧹 Deleting all products, brands and categories..."
 Product.destroy_all
-puts "✅ All products deleted."
+Brand.destroy_all
+Category.destroy_all
+puts "✅ All products, brands and categories deleted."
 
-# Kategorie do losowania
-categories = ["Electronics", "Fashion", "Books", "Home & Kitchen", "Sports"]
+# ✅ Stałe i jednoznaczne nazwy marek
+brand_names = ["Sony", "Adidas", "Ikea", "Penguin Books"]
+brands = brand_names.map { |name| Brand.create!(name: name) }
+
+# ✅ Stałe i jednoznaczne nazwy kategorii
+category_names = ["Electronics", "Fashion", "Home", "Books"]
+categories = category_names.map { |name| Category.create!(name: name) }
+
+puts "📦 Created #{brands.count} brands and #{categories.count} categories."
 
 puts "📦 Creating products with nice descriptions and images..."
 
 15.times do
   category = categories.sample
-  name = case category
+  brand = brands.sample
+
+  name = case category.name
          when "Electronics"
            "#{Faker::Device.manufacturer} #{Faker::Device.model_name}"
          when "Fashion"
            "#{Faker::Commerce.color.capitalize} #{Faker::Commerce.material} Shirt"
          when "Books"
            Faker::Book.title
-         when "Home & Kitchen"
+         when "Home"
            "#{Faker::Appliance.brand} #{Faker::Appliance.equipment}"
-         when "Sports"
-           "#{Faker::Sports::Football.team} Training Gear"
+         else
+           Faker::Commerce.product_name
          end
 
-  description = case category
+  description = case category.name
                 when "Books"
                   "A gripping #{Faker::Book.genre.downcase} novel by #{Faker::Book.author}."
                 when "Electronics"
                   "High-quality #{Faker::Device.model_name.downcase} from #{Faker::Device.manufacturer}, designed for performance and reliability."
                 when "Fashion"
                   "Stylish and comfortable, made from premium materials. Perfect for everyday wear."
-                when "Home & Kitchen"
+                when "Home"
                   "Make your life easier with this top-rated kitchen essential from #{Faker::Appliance.brand}."
-                when "Sports"
-                  "Durable and lightweight, ideal for both training and competition."
                 else
                   Faker::Marketing.buzzwords
                 end
@@ -45,7 +54,9 @@ puts "📦 Creating products with nice descriptions and images..."
   product = Product.create!(
     name: name,
     description: description,
-    price: price
+    price: price,
+    brand: brand,
+    category: category
   )
 
   image_url = "https://picsum.photos/seed/#{rand(1000)}/600/400"
@@ -63,7 +74,7 @@ puts "📦 Creating products with nice descriptions and images..."
     content_type: 'image/jpeg'
   )
 
-  puts "✅ Created: #{product.name} (#{category})"
+  puts "✅ Created: #{product.name} (Category: #{category.name}, Brand: #{brand.name})"
 end
 
 puts "🎉 Seed complete! Total products: #{Product.count}"

@@ -2,17 +2,25 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[ show edit update destroy ]
 
   # GET /products or /products.json
-  def index
-    @products = Product.all
-  end
 
-  # GET /products/1 or /products/1.json
+    def index
+      @brands = Brand.all
+      @categories = Category.all
+
+      @products = Product.all
+      @products = @products.by_brand(params[:brand_id]) if params[:brand_id].present?
+      @products = @products.by_category(params[:category_id]) if params[:category_id].present?
+    end
+
+
   def show
   end
 
   # GET /products/new
   def new
     @product = Product.new
+    @brands = Brand.all
+    @categories = Category.all
   end
 
   # GET /products/1/edit
@@ -58,6 +66,8 @@ class ProductsController < ApplicationController
   end
 
   private
+
+
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params.expect(:id))
@@ -65,6 +75,6 @@ class ProductsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def product_params
-      params.expect(product: [ :name, :description, :price, :image])
+      params.expect(product: [ :name, :description, :price, :image, :brand_id, :category_id])
     end
 end

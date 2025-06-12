@@ -25,15 +25,26 @@
 <%= render 'layouts/navbar_public' %>
 
 <!-- Main content -->
-<main class="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-32">
-  <div class="bg-white shadow-md rounded-xl p-6">
+<main class="flex-1 w-full px-4 sm:px-6 lg:px-16 mt-32 flex gap-8 relative">
+
+  <!-- Produkty / główna zawartość -->
+  <div class="flex-1 bg-white shadow-md rounded-xl p-6">
     <%= yield %>
   </div>
+
+  <!-- Sidebar z filtrami po prawej -->
+  <aside class="w-64 bg-white shadow-md rounded-xl p-6 sticky top-32 h-max">
+    <% if defined?(@brands) && defined?(@categories) %>
+      <%= render 'layouts/filters' %>
+    <% end %>
+  </aside>
+
 </main>
 
 <!-- Footer -->
 <footer class="text-center text-sm text-gray-400 mt-10 py-6">
   &copy; <%= Time.current.year %> Easy Store. All rights reserved.
 </footer>
+
 </body>
 </html>
