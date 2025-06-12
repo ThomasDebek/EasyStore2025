@@ -1,12 +1,12 @@
-<% content_for :title, "Editing product" %>
+<% content_for :title, "Editing Product" %>
 
-<h1>Editing product</h1>
+<div class="max-w-2xl mx-auto mt-10 bg-white shadow-md rounded-xl p-6">
+  <h1 class="text-3xl font-bold text-gray-800 mb-6">Edit Product</h1>
 
-<%= render "form", product: @product %>
+  <%= render "form", product: @product %>
 
-<br>
-
-<div>
-  <%= link_to "Show this product", @product %> |
-  <%= link_to "Back to products", products_path %>
+  <div class="mt-6 flex space-x-4">
+    <%= link_to "Show this product", @product, class: "text-sm text-white bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-md" %>
+    <%= link_to "Back to products", products_path, class: "text-sm text-gray-700 hover:text-gray-900 px-4 py-2 border border-gray-300 rounded-md" %>
+  </div>
 </div>

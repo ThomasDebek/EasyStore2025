@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for(:title) || "Easy Store" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title><%= content_for(:title) || "Easy Store" %></title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= yield :head %>
+  <%= yield :head %>
 
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+  <link rel="icon" href="/icon.png" type="image/png">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.png">
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+  <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+</head>
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+<body class="bg-gray-100 text-gray-800 font-sans min-h-screen">
+<!-- Header / Navbar -->
+<header class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
+  <div class="container mx-auto px-5 py-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-gray-800">
+      <%= link_to "🛍️ Easy Store", root_path, class: "hover:text-indigo-600 transition" %>
+    </h1>
+    <nav class="space-x-4 text-sm">
+      <%= link_to "Products", products_path, class: "text-gray-600 hover:text-indigo-600 transition" %>
+      <%= link_to "New Product", new_product_path, class: "bg-indigo-600 text-white px-3 py-1.5 rounded hover:bg-indigo-700 transition" %>
+    </nav>
+  </div>
+</header>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= yield %>
-    </main>
-  </body>
+<!-- Main content -->
+<main class="container mx-auto mt-32 px-5">
+  <div class="bg-white shadow-lg rounded-xl p-6">
+    <%= yield %>
+  </div>
+</main>
+
+<!-- Footer (optional) -->
+<footer class="text-center text-xs text-gray-400 mt-10 py-6">
+  © <%= Time.current.year %> Easy Store. All rights reserved.
+</footer>
+</body>
 </html>
