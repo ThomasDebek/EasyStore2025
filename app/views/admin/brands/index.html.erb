@@ -11,11 +11,11 @@
   </div>
 
   <div id="admin_brands" class="min-w-full">
-    <% if @admin_brands.any? %>
-      <% @admin_brands.each do |admin_brand| %>
-        <%= render admin_brand %>
+    <% if @brands.any? %>
+      <% @brands.each do |brand| %>
+        <%= render brand %>
         <p>
-          <%= link_to "Show this brand", admin_brand, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+          <%= link_to "Show this brand", [:admin, brand], class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
         </p>
       <% end %>
     <% else %>
