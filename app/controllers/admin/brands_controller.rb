@@ -1,4 +1,6 @@
 class Admin::BrandsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_admin!
   before_action :set_admin_brand, only: %i[ show edit update destroy ]
 
   # GET /admin/brands or /admin/brands.json
@@ -58,6 +60,10 @@ class Admin::BrandsController < ApplicationController
   end
 
   private
+
+  def require_admin!
+    redirect_to root_path, alert: "Not authorized" unless current_user&.admin?
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_brand
       @admin_brand = Admin::Brand.find(params.expect(:id))

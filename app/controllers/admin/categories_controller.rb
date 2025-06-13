@@ -1,4 +1,6 @@
 class Admin::CategoriesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :require_admin!
   before_action :set_admin_category, only: %i[ show edit update destroy ]
 
   # GET /admin/categories or /admin/categories.json
@@ -58,6 +60,10 @@ class Admin::CategoriesController < ApplicationController
   end
 
   private
+
+  def require_admin!
+    redirect_to root_path, alert: "Not authorized" unless current_user&.admin?
+  end
     # Use callbacks to share common setup or constraints between actions.
     def set_admin_category
       @admin_category = Admin::Category.find(params.expect(:id))
