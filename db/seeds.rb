@@ -1,11 +1,24 @@
 require 'faker'
 require 'open-uri'
 
-puts "🧹 Deleting all products, brands and categories..."
+puts "🧹 Deleting users, all products, brands and categories..."
 Product.destroy_all
 Brand.destroy_all
 Category.destroy_all
+User.destroy_all
 puts "✅ All products, brands and categories deleted."
+
+
+
+puts "📦 Creating admin user..."
+User.create!(
+  email: "admin@gmail.com",
+  password: "secret",
+  password_confirmation: "secret",
+  admin: true
+)
+puts "✅ Admin user created."
+
 
 # ✅ Stałe i jednoznaczne nazwy marek
 brand_names = ["Sony", "Adidas", "Ikea", "Penguin Books"]

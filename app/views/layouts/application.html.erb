@@ -7,7 +7,6 @@
   <meta name="mobile-web-app-capable" content="yes">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-
   <%= yield :head %>
 
   <link rel="icon" href="/icon.png" type="image/png">
@@ -22,21 +21,24 @@
 <body class="bg-gray-100 text-gray-800 font-sans min-h-screen flex flex-col">
 
 <!-- Header / Navbar -->
-<%= render 'layouts/navbar_public' %>
+<%= render current_user&.admin? ? 'layouts/navbar_admin' : 'layouts/navbar_public' %>
 
 <!-- Main content -->
 <main class="flex-1 w-full px-4 sm:px-6 lg:px-16 mt-32 flex gap-8 relative">
 
-  <!-- Produkty / główna zawartość -->
-  <div class="flex-1 bg-white shadow-md rounded-xl p-6">
-    <%= yield %>
-  </div>
+  <% if current_user&.admin? %>
+    <aside class="w-64 shrink-0 bg-white shadow-md rounded-xl p-6 sticky top-32 h-max">
+      <%= render 'layouts/sidebar_admin' %>
+    </aside>
+  <% end %>
 
-  <!-- Sidebar z filtrami po prawej -->
-  <aside class="w-64 bg-white shadow-md rounded-xl p-6 sticky top-32 h-max">
-    <% if defined?(@brands) && defined?(@categories) %>
-      <%= render 'layouts/filters' %>
-    <% end %>
+  <section class="flex-1 min-w-0 bg-white shadow-md rounded-xl p-6">
+    <%= render 'layouts/alert' %>
+    <%= yield %>
+  </section>
+
+  <aside class="w-64 shrink-0 bg-white shadow-md rounded-xl p-6 sticky top-32 h-max">
+    <%= render 'layouts/filters' if defined?(@brands) && defined?(@categories) %>
   </aside>
 
 </main>
