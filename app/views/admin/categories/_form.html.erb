@@ -1,11 +1,11 @@
-<%= form_with(model: admin_category, class: "contents") do |form| %>
+<%= form_with(model: admin_category, url: admin_category.new_record? ? admin_categories_path : admin_category_path(admin_category), local: true, class: "contents") do |form| %>
   <% if admin_category.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(admin_category.errors.count, "error") %> prohibited this admin_category from being saved:</h2>
+      <h2><%= pluralize(admin_category.errors.count, "error") %> prohibited this category from being saved:</h2>
 
       <ul class="list-disc ml-6">
-        <% admin_category.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+        <% admin_category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
@@ -13,10 +13,10 @@
 
   <div class="my-5">
     <%= form.label :name %>
-    <%= form.text_field :name, class: ["block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": admin_category.errors[:name].none?, "border-red-400 focus:outline-red-600": admin_category.errors[:name].any?}] %>
+    <%= form.text_field :name, class: "block shadow rounded-md border outline-none px-3 py-2 mt-2 w-full #{admin_category.errors[:name].any? ? 'border-red-400' : 'border-gray-400'}" %>
   </div>
 
   <div class="inline">
-    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+    <%= form.submit class: "rounded-md px-3.5 py-2.5 bg-indigo-600 text-white font-medium hover:bg-indigo-500" %>
   </div>
 <% end %>

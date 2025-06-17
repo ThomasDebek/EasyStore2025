@@ -1,62 +1,42 @@
 class Admin::CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin!
-  before_action :set_admin_category, only: %i[ show edit update destroy ]
+  before_action :set_admin_category, only: %i[show edit update destroy]
 
-  # GET /admin/categories or /admin/categories.json
   def index
-    @categories = Category.all
+    @admin_categories = Category.all
   end
 
-  # GET /admin/categories/1 or /admin/categories/1.json
   def show
   end
 
-  # GET /admin/categories/new
   def new
-    @category = Admin::Category.new
+    @admin_category = Category.new
   end
 
-  # GET /admin/categories/1/edit
   def edit
   end
 
-  # POST /admin/categories or /admin/categories.json
   def create
-    @category = Category.new(admin_category_params)
-
-    respond_to do |format|
-      if @category.save
-        format.html { redirect_to @category, notice: "Category was successfully created." }
-        format.json { render :show, status: :created, location: @category }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
-      end
+    @admin_category = Category.new(admin_category_params)
+    if @admin_category.save
+      redirect_to [:admin, @admin_category], notice: "Category was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /admin/categories/1 or /admin/categories/1.json
   def update
-    respond_to do |format|
-      if @category.update(admin_category_params)
-        format.html { redirect_to @category, notice: "Category was successfully updated." }
-        format.json { render :show, status: :ok, location: @category }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @category.errors, status: :unprocessable_entity }
-      end
+    if @admin_category.update(admin_category_params)
+      redirect_to [:admin, @admin_category], notice: "Category was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /admin/categories/1 or /admin/categories/1.json
   def destroy
-    @category.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to admin_categories_path, status: :see_other, notice: "Category was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @admin_category.destroy!
+    redirect_to admin_categories_path, status: :see_other, notice: "Category was successfully destroyed."
   end
 
   private
@@ -64,13 +44,12 @@ class Admin::CategoriesController < ApplicationController
   def require_admin!
     redirect_to root_path, alert: "Not authorized" unless current_user&.admin?
   end
-    # Use callbacks to share common setup or constraints between actions.
-    def set_admin_category
-      @category = Category.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def admin_category_params
-      params.expect(admin_category: [ :name ])
-    end
+  def set_admin_category
+    @admin_category = Category.find(params[:id])
+  end
+
+  def admin_category_params
+    params.require(:category).permit(:name)
+  end
 end

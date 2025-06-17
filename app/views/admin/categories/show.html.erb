@@ -7,11 +7,11 @@
 
   <h1 class="font-bold text-4xl">Showing category</h1>
 
-  <%= render @category %>
+  <%= render @admin_category %>
 
-  <%= link_to "Edit this category", edit_admin_category_path(@category), class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to categories", admin_categories_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Edit this brand", edit_admin_category_path(@admin_category), class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Back to brands", admin_categories_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
   <div class="inline-block ml-2">
-    <%= button_to "Destroy this category", admin_category_path(@category), method: :delete, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
+    <%= button_to "Destroy this category", admin_category_path(@admin_category), method: :delete, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
   </div>
 </div>

@@ -5,6 +5,6 @@
 
   <%= render "form", admin_brand: @admin_brand %>
 
-  <%= link_to "Show this brand", @admin_brand, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Show this brand", [:admin, @admin_brand], class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
   <%= link_to "Back to brands", admin_brands_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
 </div>
