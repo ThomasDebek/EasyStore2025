@@ -1,0 +1,11 @@
+<header class="bg-blue-800 shadow-md fixed top-0 left-0 w-full z-50">
+  <div class="container mx-auto px-5 py-4 flex justify-between items-center">
+    <div class="text-lg font-semibold text-white">
+      <%= link_to "🛍️ Easy Store Admin", "", class: "hover:text-lime-400" %>
+    </div>
+    <div class="space-x-6 flex items-center">
+      <span class="text-sm text-lime-400">You are logged in as Admin: <%= current_user.email %></span>
+      <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "hover:text-red-500 text-white font-semibold" %>
+    </div>
+  </div>
+</header>
