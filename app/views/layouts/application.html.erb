@@ -37,9 +37,13 @@
     <%= yield %>
   </section>
 
-  <aside class="w-64 shrink-0 bg-white shadow-md rounded-xl p-6 sticky top-32 h-max">
-    <%= render('layouts/filters') if defined?(@brands) && defined?(@categories) && @brands.present? && @categories.present? %>
-  </aside>
+  <% if (controller.controller_path == "products" || controller.controller_path == "admin/products") &&
+        controller.action_name == "index" &&
+        @brands.present? && @categories.present? %>
+    <aside class="w-64 shrink-0 bg-white shadow-md rounded-xl p-6 sticky top-32 h-max">
+      <%= render 'layouts/filters' %>
+    </aside>
+  <% end %>
 
 </main>
 

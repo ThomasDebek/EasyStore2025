@@ -4,23 +4,23 @@ class Admin::BrandsController < ApplicationController
   before_action :set_admin_brand, only: %i[show edit update destroy]
 
   def index
-    @amin_brands = Brand.all
+    @admin_brands = Admin::Brand.all
   end
 
   def show
   end
 
   def new
-    @admin_brand = Brand.new
+    @admin_brand = Admin::Brand.new
   end
 
   def edit
   end
 
   def create
-    @admin_brand = Brand.new(admin_brand_params)
+    @admin_brand = Admin::Brand.new(admin_brand_params)
     if @admin_brand.save
-      redirect_to [:admin, @admin_brand], notice: "Brand was successfully created."
+      redirect_to admin_brand_path(@admin_brand), notice: "Brand was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,7 +28,7 @@ class Admin::BrandsController < ApplicationController
 
   def update
     if @admin_brand.update(admin_brand_params)
-      redirect_to [:admin, @admin_brand], notice: "Brand was successfully updated."
+      redirect_to admin_brand_path(@admin_brand), notice: "Brand was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -46,10 +46,10 @@ class Admin::BrandsController < ApplicationController
   end
 
   def set_admin_brand
-    @admin_brand = Brand.find(params[:id])
+    @admin_brand = Admin::Brand.find(params[:id])
   end
 
   def admin_brand_params
-    params.require(:brand).permit(:name)
+    params.require(:admin_brand).permit(:name)
   end
 end

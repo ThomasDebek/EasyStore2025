@@ -4,23 +4,23 @@ class Admin::CategoriesController < ApplicationController
   before_action :set_admin_category, only: %i[show edit update destroy]
 
   def index
-    @admin_categories = Category.all
+    @admin_categories = Admin::Category.all
   end
 
   def show
   end
 
   def new
-    @admin_category = Category.new
+    @admin_category = Admin::Category.new
   end
 
   def edit
   end
 
   def create
-    @admin_category = Category.new(admin_category_params)
+    @admin_category = Admin::Category.new(admin_category_params)
     if @admin_category.save
-      redirect_to [:admin, @admin_category], notice: "Category was successfully created."
+      redirect_to admin_category_path(@admin_category), notice: "Category was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -46,10 +46,10 @@ class Admin::CategoriesController < ApplicationController
   end
 
   def set_admin_category
-    @admin_category = Category.find(params[:id])
+    @admin_category = Admin::Category.find(params[:id])
   end
 
   def admin_category_params
-    params.require(:category).permit(:name)
+    params.require(:admin_category).permit(:name)
   end
 end

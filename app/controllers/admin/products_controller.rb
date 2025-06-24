@@ -2,10 +2,14 @@ class Admin::ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :require_admin!
   before_action :set_admin_product, only: %i[ show edit update destroy ]
+  before_action :load_brands_and_categories, only: [:index, :new, :edit, :create, :update]
 
   # GET /admin/products or /admin/products.json
   def index
     @admin_products = Admin::Product.all
+
+    @admin_products = @admin_products.where(brand_id: params[:brand_id]) if params[:brand_id].present?
+    @admin_products = @admin_products.where(category_id: params[:category_id]) if params[:category_id].present?
   end
 
   # GET /admin/products/1 or /admin/products/1.json
@@ -60,6 +64,10 @@ class Admin::ProductsController < ApplicationController
   end
 
   private
+  def load_brands_and_categories
+    @brands = Admin::Brand.all
+    @categories = Admin::Category.all
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_admin_product

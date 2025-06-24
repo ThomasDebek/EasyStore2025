@@ -1,22 +1,33 @@
-<div id="<%= dom_id product %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= product.name %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
-    <%= product.description %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Price:</strong>
-    <%= product.price %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Brand:</strong>
-    <%= product.brand_id %>
-  </p>
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Category:</strong>
-    <%= product.category_id %>
-  </p>
+<div id="<%= dom_id product %>" class="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 flex flex-col">
+  <% if product.image.attached? %>
+    <%= image_tag product.image, alt: product.name, class: "rounded-t-lg object-cover w-full h-48" %>
+  <% else %>
+    <div class="w-full h-48 bg-gray-200 flex items-center justify-center text-gray-400 rounded-t-lg">
+      No image
+    </div>
+  <% end %>
+
+  <div class="p-4 flex flex-col flex-grow">
+    <h2 class="text-lg font-semibold mb-1 truncate" title="<%= product.name %>"><%= product.name %></h2>
+
+    <p class="text-sm text-gray-600 mb-2 flex-grow" title="<%= product.description %>">
+      <%= truncate(product.description, length: 80) %>
+    </p>
+
+    <div class="text-sm text-gray-500 mb-3 space-y-1">
+      <p><strong>Brand:</strong> <%= product.brand&.name || "—" %></p>
+      <p><strong>Category:</strong> <%= product.category&.name || "—" %></p>
+    </div>
+
+    <div class="flex justify-between items-center">
+      <span class="font-bold text-indigo-600 text-lg">
+        <%= number_to_currency(product.price) %>
+      </span>
+
+      <div class="space-x-2">
+        <%= link_to "Show", admin_product_path(product), class: "text-blue-600 hover:text-blue-800 font-medium" %>
+        <%= link_to "Edit", edit_admin_product_path(product), class: "text-green-600 hover:text-green-800 font-medium" %>
+      </div>
+    </div>
+  </div>
 </div>

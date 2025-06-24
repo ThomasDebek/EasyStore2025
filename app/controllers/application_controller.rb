@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   private
 
   def set_filters_data
-    @brands = Brand.all
-    @categories = Category.all
+    @brands = Admin::Brand.all
+    @categories = Admin::Category.all
   end
 end

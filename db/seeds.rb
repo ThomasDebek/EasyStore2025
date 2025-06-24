@@ -1,14 +1,12 @@
 require 'faker'
 require 'open-uri'
 
-puts "🧹 Deleting users, all products, brands and categories..."
-Product.destroy_all
-Brand.destroy_all
-Category.destroy_all
+puts "🧹 Deleting users, admin products, brands and categories..."
+Admin::Product.destroy_all
+Admin::Brand.destroy_all
+Admin::Category.destroy_all
 User.destroy_all
-puts "✅ All products, brands and categories deleted."
-
-
+puts "✅ Admin products, brands and categories deleted."
 
 puts "📦 Creating admin user..."
 User.create!(
@@ -19,18 +17,17 @@ User.create!(
 )
 puts "✅ Admin user created."
 
-
 # ✅ Stałe i jednoznaczne nazwy marek
 brand_names = ["Sony", "Adidas", "Ikea", "Penguin Books"]
-brands = brand_names.map { |name| Brand.create!(name: name) }
+brands = brand_names.map { |name| Admin::Brand.create!(name: name) }
 
 # ✅ Stałe i jednoznaczne nazwy kategorii
 category_names = ["Electronics", "Fashion", "Home", "Books"]
-categories = category_names.map { |name| Category.create!(name: name) }
+categories = category_names.map { |name| Admin::Category.create!(name: name) }
 
 puts "📦 Created #{brands.count} brands and #{categories.count} categories."
 
-puts "📦 Creating products with nice descriptions and images..."
+puts "📦 Creating admin products with nice descriptions and images..."
 
 15.times do
   category = categories.sample
@@ -64,7 +61,7 @@ puts "📦 Creating products with nice descriptions and images..."
 
   price = Faker::Commerce.price(range: 20..500)
 
-  product = Product.create!(
+  product = Admin::Product.create!(
     name: name,
     description: description,
     price: price,
@@ -90,4 +87,4 @@ puts "📦 Creating products with nice descriptions and images..."
   puts "✅ Created: #{product.name} (Category: #{category.name}, Brand: #{brand.name})"
 end
 
-puts "🎉 Seed complete! Total products: #{Product.count}"
+puts "🎉 Seed complete! Total admin products: #{Admin::Product.count}"

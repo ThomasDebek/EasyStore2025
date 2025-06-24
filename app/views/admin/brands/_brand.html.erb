@@ -1,8 +1,7 @@
-<div id="<%= dom_id(brand) %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Name:</strong>
-    <%= brand.name %>
-  </p>
-  <%= link_to "Edit", edit_admin_brand_path(brand), class: "btn" %>
-  <%= link_to "Delete", admin_brand_path(brand), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+<div id="<%= dom_id brand %>" class="bg-white rounded-lg shadow-md hover:shadow-lg p-4 mb-4 flex items-center space-x-4">
+
+
+  <div>
+    <h2 class="text-lg font-semibold"><%= brand.name %></h2>
+  </div>
 </div>
