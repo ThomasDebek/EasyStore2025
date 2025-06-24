@@ -1,0 +1,49 @@
+<h1 class="text-2xl font-bold mb-6">Admin Products</h1>
+
+<div class="mb-4">
+  <%= link_to "New Product", new_admin_product_path, class: "inline-block bg-indigo-600 text-white font-semibold px-4 py-2 rounded hover:bg-indigo-700 transition" %>
+</div>
+
+<table class="min-w-full bg-white shadow rounded-lg overflow-hidden">
+  <thead class="bg-gray-50 border-b">
+  <tr>
+    <th class="text-left px-4 py-3 font-semibold text-gray-700">Image</th>
+    <th class="text-left px-4 py-3 font-semibold text-gray-700">Name</th>
+    <th class="text-left px-4 py-3 font-semibold text-gray-700">Brand</th>
+    <th class="text-left px-4 py-3 font-semibold text-gray-700">Category</th>
+    <th class="text-left px-4 py-3 font-semibold text-gray-700">Price</th>
+    <th class="px-4 py-3 font-semibold text-gray-700 text-center">Actions</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @admin_products.each do |product| %>
+    <tr class="border-b hover:bg-gray-50 transition-colors">
+      <td class="px-4 py-3">
+        <% if product.image.attached? %>
+          <%= link_to admin_product_path(product) do %>
+            <%= image_tag product.image, alt: product.name, class: "rounded-md object-cover", width: 80, height: 80 %>
+          <% end %>
+        <% else %>
+          <div class="w-20 h-20 bg-gray-200 flex items-center justify-center text-gray-400 rounded-md text-xs">
+            No image
+          </div>
+        <% end %>
+      </td>
+
+      <td class="px-4 py-3"><%= product.name %></td>
+      <td class="px-4 py-3"><%= product.brand&.name || "—" %></td>
+      <td class="px-4 py-3"><%= product.category&.name || "—" %></td>
+      <td class="px-4 py-3 font-semibold text-indigo-600"><%= number_to_currency(product.price) %></td>
+
+      <td class="px-4 py-3 text-center">
+        <div class="inline-flex space-x-4 justify-center">
+          <%= link_to "Show", admin_product_path(product), class: "text-blue-600 hover:text-blue-800 font-medium" %>
+          <%= link_to "Edit", edit_admin_product_path(product), class: "text-green-600 hover:text-green-800 font-medium" %>
+          <%= button_to "Delete", admin_product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "text-red-600 hover:text-red-800 font-medium bg-transparent border-none p-0 cursor-pointer" %>
+        </div>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

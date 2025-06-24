@@ -1,0 +1,20 @@
+<header class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
+  <div class="container mx-auto px-5 py-4 flex justify-between items-center">
+    <div class="text-lg font-semibold">
+      <%= link_to "🛍️ Easy Store", root_path, class: "hover:text-lime-100" %>
+    </div>
+    <div class="space-x-6 flex items-center">
+      <% if user_signed_in? %>
+        <% if current_user.admin? %>
+          <%= link_to "Admin Panel", admin_products_path, class: "hover:text-lime-200 font-semibold" %>
+        <% end %>
+        <span class="text-sm text-green-100">Hello, <%= current_user.email %></span>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "hover:text-red-200" %>
+      <% else %>
+        <%= link_to "Sign Up", new_user_registration_path, class: "hover:text-white" %>
+        <%= link_to "Login", new_user_session_path, class: "hover:text-white" %>
+      <% end %>
+    </div>
+  </div>
+</header>
+
