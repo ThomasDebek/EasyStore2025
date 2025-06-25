@@ -22,6 +22,7 @@ gem "jbuilder"
 gem 'faker'
 gem "tailwindcss-rails", "~> 3.3.1"
 gem 'devise'
+gem 'pg_search'
 
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
