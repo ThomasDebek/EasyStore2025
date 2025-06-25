@@ -8,6 +8,10 @@ class Admin::ProductsController < ApplicationController
   def index
     @admin_products = Admin::Product.all
 
+    if params[:query].present?
+      @admin_products = @admin_products.where("name ILIKE ? OR description ILIKE ?", "%#{params[:query]}%", "%#{params[:query]}%")
+    end
+
     @admin_products = @admin_products.where(brand_id: params[:brand_id]) if params[:brand_id].present?
     @admin_products = @admin_products.where(category_id: params[:category_id]) if params[:category_id].present?
   end

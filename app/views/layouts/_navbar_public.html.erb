@@ -4,6 +4,11 @@
       <%= link_to "🛍️ Easy Store", root_path, class: "hover:text-lime-100" %>
     </div>
     <div class="space-x-6 flex items-center">
+      <%= form_with url: products_path, method: :get, local: true, class: "flex items-center space-x-2" do |form| %>
+        <%= form.text_field :query, placeholder: "Search products...", class: "px-3 py-1 border rounded-md text-sm" %>
+        <%= form.submit "Search", class: "bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700" %>
+      <% end %>
+
       <% if user_signed_in? %>
         <% if current_user.admin? %>
           <%= link_to "Admin Panel", admin_products_path, class: "hover:text-lime-200 font-semibold" %>
@@ -17,4 +22,3 @@
     </div>
   </div>
 </header>
-

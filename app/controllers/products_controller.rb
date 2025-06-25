@@ -5,6 +5,11 @@ class ProductsController < ApplicationController
       redirect_to admin_products_path
     else
       @products = Admin::Product.all
+
+      if params[:query].present?
+        @products = @products.search_by_name_or_description(params[:query])
+      end
+
       @products = @products.where(brand_id: params[:brand_id]) if params[:brand_id].present?
       @products = @products.where(category_id: params[:category_id]) if params[:category_id].present?
     end
