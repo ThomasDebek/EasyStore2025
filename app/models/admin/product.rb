@@ -4,9 +4,11 @@ class Admin::Product < ApplicationRecord
   belongs_to :brand, class_name: 'Admin::Brand'
   belongs_to :category, class_name: 'Admin::Category'
 
-  pg_search_scope :search_by_name_or_description,
-                  against: [:name, :description],
+  pg_search_scope :search_by_name,
+                  against: :name,
                   using: {
-                    tsearch: { prefix: true }
+                    dmetaphone: {},
+                    trigram: {},
+                    tsearch: { prefix: true, any_word: true }
                   }
 end
