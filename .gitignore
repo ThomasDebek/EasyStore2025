@@ -9,6 +9,9 @@
 .idea
 .DS_Store
 /vendor/bundle
+/config/configuration.yml
+
+
 
 # Ignore all environment files.
 /.env*

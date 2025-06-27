@@ -23,6 +23,10 @@ gem 'faker'
 gem "tailwindcss-rails", "~> 3.3.1"
 gem 'devise'
 gem 'pg_search'
+gem 'a9n', '~> 1.5' # We used also with google logged
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+
 
 
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
