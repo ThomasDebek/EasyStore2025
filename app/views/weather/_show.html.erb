@@ -1,0 +1,8 @@
+<div class="flex items-center space-x-2">
+  <span><%= weather_presenter.description %></span>
+  <span>|</span>
+  <span><%= weather_presenter.location %></span>
+  <span>|</span>
+  <span><%= weather_presenter.temperature %>°C</span>
+  <%= image_tag weather_presenter.icon, alt: "Weather icon", class: "w-6 h-6" %>
+</div>

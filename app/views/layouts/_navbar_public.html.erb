@@ -4,16 +4,27 @@
 
 <header class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
   <div class="container mx-auto px-5 py-4 flex justify-between items-center">
+
+    <!-- Logo -->
     <div class="text-lg font-semibold">
       <%= link_to "🛍️ Easy Store", root_path, class: "hover:text-lime-100" %>
     </div>
 
+    <!-- Pogoda -->
+    <div class="ml-4 px-3 py-1 bg-blue-50 rounded-md shadow-sm text-sm text-blue-900">
+      <%= render partial: 'weather/show' %>
+    </div>
+
+    <!-- Prawa strona nagłówka -->
     <div class="space-x-6 flex items-center">
+
+      <!-- Wyszukiwarka -->
       <%= form_with url: products_path, method: :get, local: true, class: "flex items-center space-x-2" do |form| %>
         <%= form.text_field :query, placeholder: "Search products...", class: "px-3 py-1 border rounded-md text-sm" %>
         <%= form.submit "Search", class: "bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700" %>
       <% end %>
 
+      <!-- Logika użytkownika -->
       <% if user_signed_in? %>
         <% if current_user.admin? %>
           <%= link_to "Admin Panel", admin_products_path, class: "hover:text-lime-200 font-semibold" %>
@@ -29,7 +40,7 @@
         <%= link_to "Login", new_user_session_path,
                     class: "text-gray-700 font-medium transition-transform duration-200 ease-in-out hover:scale-110 hover:text-blue-600" %>
 
-        <!-- Omniauth Google Login with smaller image buttons -->
+        <!-- Omniauth (np. Google) -->
         <% if devise_mapping.omniauthable? %>
           <% resource_class.omniauth_providers.each do |provider| %>
             <%= form_for 'Login',
