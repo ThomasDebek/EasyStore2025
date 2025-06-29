@@ -9,6 +9,9 @@
 .idea
 .DS_Store
 /vendor/bundle
+/config/configuration.yml
+
+
 
 # Ignore all environment files.
 /.env*
@@ -35,3 +38,6 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/app/assets/builds/*
+!/app/assets/builds/.keep
