@@ -11,9 +11,9 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
 
-  resources :cart, only: [:show, :update, :destroy] do
-    post :add, to:  'carts#add'
-    delete :remove_item, to: 'carts#remove_item'
+  resource :cart, only: [:show, :destroy] do
+    post :add
+    delete :remove_item
   end
 
 end

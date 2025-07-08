@@ -33,9 +33,14 @@
             <strong>Category:</strong> <%= product.category.name %>
           </p>
           <p class="text-sm text-gray-500 mb-2"><%= truncate(product.description, length: 100) %></p>
-          <p class="font-bold text-indigo-600"><%= number_to_currency(product.price) %></p>
+          <p class="font-bold text-indigo-600 mb-2"><%= number_to_currency(product.price) %></p>
+
+          <%= button_to 'Add to Cart', add_cart_path(product_id: product.id),
+                        method: :post,
+                        class: 'bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition' %>
         </div>
       </div>
     <% end %>
+
   </div>
 <% end %>
