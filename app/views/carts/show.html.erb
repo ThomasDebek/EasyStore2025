@@ -29,12 +29,12 @@
         </td>
         <td class="border-b p-4"><%= number_to_currency(item.admin_product.price) %></td>
         <td class="border-b p-4">
-          <%= form_with url: update_quantity_cart_path, method: :patch, local: true, class: "inline-flex" do |f| %>
-         <%= hidden_field_tag :item_id, item.id %>
+          <%= form_with url: update_quantity_cart_path, method: :patch, local: false, html: { data: { controller: "cart" } } do %>
+            <%= hidden_field_tag :item_id, item.id %>
             <%= number_field_tag :quantity, item.quantity,
                                  in: 1..10,
-                                 class: "w-16 text-center border rounded px-2 py-1 text-sm" %>
-            <%= f.submit "↻", class: "ml-2 text-sm bg-gray-200 px-2 rounded hover:bg-gray-300" %>
+                                 class: "w-16 text-center border rounded px-2 py-1 text-sm",
+                                 data: { action: "change->cart#submitQuantityForm" } %>
           <% end %>
         </td>
         <td class="border-b p-4"><%= number_to_currency(item_total) %></td>
