@@ -12,13 +12,13 @@ class CartsController < ApplicationController
     if result.success?
       redirect_to cart_path, notice: result.value!
     else
-      redirect_to cart_path, alert: result.failure
+      redirect_to products_path, alert: result.failure
     end
   end
 
   def remove_item
     cart = current_user.cart
-    @cart_items = cart.cart_items.find_by(id: params[:item_id])
+    item = cart.cart_items.find_by(id: params[:item_id])
     item&.destroy
     redirect_to cart_path, notice: "Item removed from cart"
   end

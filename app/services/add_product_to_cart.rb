@@ -3,6 +3,10 @@ require 'dry/monads'
 class AddProductToCart
   include Dry::Monads[:result, :do]
 
+  def self.call(product_id, user)
+    new.call(user: user, product_id: product_id)
+  end
+
   def call(user:, product_id:)
     product = yield find_product(product_id)
     cart = user.cart || user.create_cart

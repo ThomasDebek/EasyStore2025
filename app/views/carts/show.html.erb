@@ -1,0 +1,47 @@
+<h1 class="text-2xl font-bold mb-6">🛒 Your Shopping Cart</h1>
+
+<% if @cart_items.any? %>
+  <table class="w-full text-left border-collapse bg-white shadow-md rounded-lg overflow-hidden">
+    <thead class="bg-gray-100">
+    <tr>
+      <th class="border-b p-4">Product</th>
+      <th class="border-b p-4">Price</th>
+      <th class="border-b p-4 text-right">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% @cart_items.each do |item| %>
+      <tr class="hover:bg-gray-50 transition">
+        <td class="border-b p-4 flex items-center space-x-4">
+          <% if item.admin_product.image.attached? %>
+            <%= image_tag item.admin_product.image, class: "w-16 h-16 object-cover rounded" %>
+          <% else %>
+            <div class="w-16 h-16 bg-gray-200 flex items-center justify-center rounded text-sm text-gray-500">
+              No image
+            </div>
+          <% end %>
+          <span class="font-medium text-gray-800"><%= item.admin_product.name %></span>
+        </td>
+        <td class="border-b p-4 align-middle text-gray-700">
+          <%= number_to_currency(item.admin_product.price) %>
+        </td>
+        <td class="border-b p-4 text-right">
+          <%= button_to '🗑️ Remove',
+                        remove_item_cart_path(item_id: item.id),
+                        method: :delete,
+                        class: "text-red-600 text-sm hover:underline" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+  <div class="mt-6 flex justify-end">
+    <%= button_to '🧹 Empty Cart',
+                  cart_path,
+                  method: :delete,
+                  class: "bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm" %>
+  </div>
+<% else %>
+  <p class="text-gray-500 italic">Your cart is empty.</p>
+<% end %>
