@@ -16,6 +16,19 @@ class CartsController < ApplicationController
     end
   end
 
+  def update_quantity
+    item = current_user.cart.cart_items.find_by(id: params[:item_id])
+
+    if item.present?
+      new_quantity = params[:quantity].to_i.clamp(1, 10)
+      item.update(quantity: new_quantity)
+      flash[:notice] = "Quantity updated"
+    else
+      flash[:alert] = "Item not found"
+    end
+    redirect_to cart_path
+  end
+
   def remove_item
     cart = current_user.cart
     item = cart.cart_items.find_by(id: params[:item_id])

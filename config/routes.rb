@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   resource :cart, only: [:show, :destroy] do
     post :add
     delete :remove_item
+    patch :update_quantity
   end
 
 end
