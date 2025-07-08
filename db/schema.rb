@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_07_08_095903) do
+ActiveRecord::Schema[8.0].define(version: 2025_07_08_125105) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "fuzzystrmatch"
   enable_extension "pg_catalog.plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_07_08_095903) do
     t.bigint "admin_product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "quantity", default: 1, null: false
     t.index ["admin_product_id"], name: "index_cart_items_on_admin_product_id"
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
   end
