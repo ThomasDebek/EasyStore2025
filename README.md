@@ -10,6 +10,21 @@ google_client_id: 'Your kode from https://console.cloud.google.com/apis/dashboar
 google_client_secret: 'Your kode from  https://console.cloud.google.com/apis/dashboard?inv=1&invt=Ab1Ofw&project=discountstore'
 app_host: 'http://localhost:3000'
 
+
+
+Search: 
+If you run:  rake db:drop db:create db:migrate db:seed
+When You must run this migration your hand. 
+
+
+and 
+you must run:
+bin/rails db:migrate:down VERSION=20250625125218
+bin/rails db:migrate:up VERSION=20250625125218
+
+and bin/dev
+
+
 Part 12 / Cart
 🎯 GOAL: Add a shopping cart to the application
 We will implement:
