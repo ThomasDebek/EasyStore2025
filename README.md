@@ -37,3 +37,13 @@ We will implement:
 🛤️ Routing
 💎 Migrations
 🧪 (optional): RemoveFromCart test
+
+
+Part 13 / Hotwire Combobox
+We will implement:
+🔌 Hotwire Combobox integration using the hotwire_combobox gem
+💎 Product model
+📦 Seed data using Faker
+🔍 Live search functionality for posts using a combobox
+🚀 Turbo Streams & Frames for seamless results updates
+🎨 Tailwind CSS styling for modern UI
