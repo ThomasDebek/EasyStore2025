@@ -14,15 +14,19 @@ class AddProductToCart
     if cart.cart_items.find_by(admin_product_id: product.id)
       Failure("#{product.name} is already in your cart")
     else
-      cart.cart_items.create(admin_product_id: product.id)
-      Success("Added #{product.name} to cart")
+      cart_item = cart.cart_items.new(admin_product_id: product.id)
+      if cart_item.save
+        Success("Added #{product.name} to cart")
+      else
+        Failure("Could not add #{product.name} to cart")
+      end
     end
   end
 
   private
 
   def find_product(product_id)
-    product = Admin::Product.find(product_id)
+    product = Admin::Product.find_by(id: product_id)
     product.present? ? Success(product) : Failure("Product not found")
   end
 end
