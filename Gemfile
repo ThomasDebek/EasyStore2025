@@ -27,6 +27,7 @@ gem 'a9n', '~> 1.5' # We used also with google logged
 gem 'omniauth-google-oauth2'
 gem 'omniauth-rails_csrf_protection'
 gem 'dry-monads'
+gem 'hotwire_combobox', '~> 0.4.0'
 
 
 
