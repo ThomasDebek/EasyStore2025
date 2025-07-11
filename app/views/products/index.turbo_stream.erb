@@ -1,0 +1,2 @@
+<%= async_combobox_options @products, for_id: "products-container" %>
+<%= turbo_stream.update "products", partial: "products/product", collection: @products %>

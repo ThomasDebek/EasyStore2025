@@ -4,6 +4,7 @@ class Admin::ProductsController < ApplicationController
   before_action :set_admin_product, only: %i[ show edit update destroy ]
   before_action :load_brands_and_categories, only: [:index, :new, :edit, :create, :update]
 
+
   # GET /admin/products or /admin/products.json
   def index
     @admin_products = Admin::Product.all
