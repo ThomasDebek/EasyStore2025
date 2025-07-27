@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :categories
     resources :brands
   end
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', sessions: 'users/sessions' }
   resources :products, only: [:index, :show]
 
   root 'products#index', only: [:show, :index]
