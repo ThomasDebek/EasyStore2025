@@ -51,6 +51,27 @@
 
         <%= link_to "Login", new_user_session_path,
                     class: "text-gray-700 font-medium transition-transform duration-200 ease-in-out hover:scale-110 hover:text-blue-600" %>
+
+
+        <!-- Omniauth Google Login with smaller image buttons -->
+        <% if devise_mapping.omniauthable? %>
+          <% resource_class.omniauth_providers.each do |provider| %>
+            <%= form_for 'Login',
+                         url: omniauth_authorize_path(resource_name, provider),
+                         method: :post,
+                         data: { turbo: false },
+                         class: "inline-block" do |f| %>
+              <%= f.submit "Log in with #{provider.to_s.titleize}",
+                           type: "image",
+                           src: image_path("ios_dark_rd_na@3x.png"),
+                           alt: "Log in with #{provider.to_s.titleize}",
+                           class: "w-8 h-8" %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+
+
       <% end %>
     </div>
 

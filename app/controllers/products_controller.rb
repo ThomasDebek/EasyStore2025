@@ -9,6 +9,12 @@ class ProductsController < ApplicationController
       @products = Admin::Product.search(params[:q])
       @products = @products.where(brand_id: params[:brand_id]) if params[:brand_id].present?
       @products = @products.where(category_id: params[:category_id]) if params[:category_id].present?
+
+      respond_to do |format|
+        format.html
+        format.turbo_stream
+      end
+
     end
   end
 
