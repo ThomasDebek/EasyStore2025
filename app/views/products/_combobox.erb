@@ -1,0 +1,9 @@
+<%= form_with url: products_path, method: :get, local: false do |form| %>
+  <%= form.combobox :q,
+                    products_path,
+                    id: "products-container",
+                    name_when_new: :q,
+                    mobile_at: "0px",
+                    class: "text-sm px-2 py-1 bg-transparent border-none ring-0 focus:ring-0 focus:outline-none focus:border-none rounded-md",
+                    placeholder: "Search..." %>
+<% end %>

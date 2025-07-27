@@ -17,6 +17,20 @@ gem "stimulus-rails"
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
 
+
+# Mine gems
+gem 'faker'
+gem "tailwindcss-rails", "~> 3.3.1"
+gem 'devise'
+gem 'pg_search'
+gem 'a9n', '~> 1.5' # We used also with google logged
+gem 'omniauth-google-oauth2'
+gem 'omniauth-rails_csrf_protection'
+gem 'dry-monads'
+gem 'hotwire_combobox', '~> 0.4.0'
+
+
+
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 

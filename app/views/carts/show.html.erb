@@ -1,0 +1,62 @@
+<h1 class="text-2xl font-bold mb-6">🛒 Your Shopping Cart</h1>
+
+<% if @cart_items.any? %>
+  <table class="w-full text-left border-collapse bg-white shadow-md rounded-lg overflow-hidden">
+    <thead class="bg-gray-100">
+    <tr>
+      <th class="border-b p-4">Product</th>
+      <th class="border-b p-4">Unit Price</th>
+      <th class="border-b p-4">Quantity</th>
+      <th class="border-b p-4">Total</th>
+      <th class="border-b p-4 text-right">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <% total_price = 0 %>
+    <% @cart_items.each do |item| %>
+      <% item_total = item.admin_product.price * item.quantity %>
+      <% total_price += item_total %>
+      <tr class="hover:bg-gray-50 transition">
+        <td class="border-b p-4 flex items-center space-x-4">
+          <% if item.admin_product.image.attached? %>
+            <%= image_tag item.admin_product.image, class: "w-16 h-16 object-cover rounded" %>
+          <% else %>
+            <div class="w-16 h-16 bg-gray-200 flex items-center justify-center rounded text-sm text-gray-500">
+              No image
+            </div>
+          <% end %>
+          <span class="font-medium text-gray-800"><%= item.admin_product.name %></span>
+        </td>
+        <td class="border-b p-4"><%= number_to_currency(item.admin_product.price) %></td>
+        <td class="border-b p-4">
+          <%= form_with url: update_quantity_cart_path, method: :patch, local: false, html: { data: { controller: "cart" } } do %>
+            <%= hidden_field_tag :item_id, item.id %>
+            <%= number_field_tag :quantity, item.quantity,
+                                 in: 1..10,
+                                 class: "w-16 text-center border rounded px-2 py-1 text-sm",
+                                 data: { action: "change->cart#submitQuantityForm" } %>
+          <% end %>
+        </td>
+        <td class="border-b p-4"><%= number_to_currency(item_total) %></td>
+        <td class="border-b p-4 text-right">
+          <%= button_to '🗑️ Remove', remove_item_cart_path(item_id: item.id), method: :delete, class: "text-red-600 text-sm hover:underline" %>
+        </td>
+      </tr>
+    <% end %>
+    </tbody>
+    <tfoot>
+    <tr>
+      <td colspan="3" class="p-4 text-right font-semibold text-lg">Total:</td>
+      <td class="p-4 font-bold text-indigo-600"><%= number_to_currency(total_price) %></td>
+      <td></td>
+    </tr>
+    </tfoot>
+  </table>
+
+  <div class="mt-6 flex justify-between">
+    <%= button_to '🧹 Empty Cart', cart_path, method: :delete, class: "bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 text-sm" %>
+    <%= link_to '🛍️ Checkout', "#", class: "bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700 text-sm" %>
+  </div>
+<% else %>
+  <p class="text-gray-500 italic">Your cart is empty.</p>
+<% end %>
